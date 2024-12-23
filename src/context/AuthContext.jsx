@@ -8,7 +8,7 @@ export const useAuth = () => useContext(AuthContext);
 
 const updatePlaylistsInDB = async (email, updatedPlaylists) => {
   try {
-    const response = await fetch("https://blaash-backend.onrender.com/api/updatePlaylists", {
+    const response = await fetch("http://localhost:5000/api/updatePlaylists", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, playlists: updatedPlaylists }),
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
 
   const getAuthUrl = async () => {
     try {
-      const response = await axios.get("https://blaash-backend.onrender.com/auth-url");
+      const response = await axios.get("http://localhost:5000/auth-url");
       setAuthUrl(response.data.url);
       window.location.href = response.data.url;
     } catch (error) {
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       const playlistsResponse = await axios.get(
-        `https://blaash-backend.onrender.com/playlists`,
+        `http://localhost:5000/playlists`,
         {
           params: { accessToken, email: userEmail },
         }
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
       const playlistIds = playlistsData.map((playlist) => playlist.id);
 
       const videosResponse = await axios.get(
-        "https://blaash-backend.onrender.com/playlist-videos",
+        "http://localhost:5000/playlist-videos",
         {
           params: {
             playlistIds,
@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }) => {
       setPlaylists(videosResponse.data.playlists);
 
       // })
-      await axios.post("https://blaash-backend.onrender.com/save-playlists", {
+      await axios.post("http://localhost:5000/save-playlists", {
         email: userEmail,
         playlists: videosResponse.data.playlists,
       });

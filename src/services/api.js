@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 const API = axios.create({
-    baseURL: 'https://blaash-backend.onrender.com/api/auth',
+    baseURL: 'http://localhost:5000/api/auth',
 });
 
 
 export const fetchUserDetails = async ({userEmail, setPlaylists}) => {
     try {
-      const userResponse = await axios.get(`https://blaash-backend.onrender.com/api/auth/user/${userEmail}`);
+      const userResponse = await axios.get(`http://localhost:5000/api/auth/user/${userEmail}`);
 
       if (userResponse.data && userResponse.data.playlists) {
         setPlaylists(userResponse.data.playlists);
